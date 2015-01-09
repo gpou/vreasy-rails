@@ -1,0 +1,32 @@
+<%= form_for(@task, :style => "margin-top:30px") do |f| %>
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+      <% @task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :deadline %><br>
+    <%= f.datetime_select :deadline, {}, :class => "form-control date-select" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :assigned_name %><br>
+    <%= f.text_field :assigned_name, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :assigned_phone %><br>
+    <%= f.text_field :assigned_phone, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :state %><br>
+    <%= f.select :state, [['Pending','pending'],['Waiting for response','waiting_response'],['In conversation','conversation'],['Accepted','accepted'],['Rejected','rejected'],['Completed','completed']], :class => "form-control" %>
+  </div>
+
+  <%= f.submit "Save", :class => "btn btn-primary" %>
+<% end %>

@@ -1,0 +1,60 @@
+<h1>Task <%= @task.id %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Deadline:</strong>
+  <%= @task.deadline %>
+</p>
+
+<p>
+  <strong>Assigned name:</strong>
+  <%= @task.assigned_name %>
+</p>
+
+<p>
+  <strong>Assigned phone:</strong>
+  <%= @task.assigned_phone %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @task.state %>
+</p>
+
+<p>
+  <strong>Last SMS:</strong>
+  <%= @task.last_message ? @task.last_message.gsub(/(\r)?\n/, "<br />").html_safe : "" %>
+</p>
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Empty log', empty_log_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>
+
+<br />
+<br />
+<br />
+
+<h3>Task log</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>State</th>
+      <th>SMS state</th>
+      <th>Message</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @task.task_logs.each do |task_log| %>
+      <tr>
+        <td><%= l(task_log.created_at) %></td>
+        <td><%= task_log.state %></td>
+        <td><%= task_log.message_state %></td>
+        <td><%= task_log.message ? task_log.message.gsub(/(\r)?\n/, "<br />").html_safe : "" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
